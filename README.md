@@ -86,4 +86,18 @@
 * Any pair of records in the same partition is bound by a predecessor-successor relationship (assigned by produer application)
   
 ### Topics
-* Comprise of one or more partitions and a partition must be a part of exactly one topic
+* Comprises of one or more partitions and a partition must be a part of exactly one topic
+
+### Consumer Groups and Load balancing
+* A consumer is a process or thread that attach to a kafka cluster via a client library. 
+* A consumer group are effectively a load-balancing mechanism within kafka - distributing partition assignements evenly among the individual consumer instances withing the group. 
+* A consumer internally maintains an offset that points to the next record in a partition.
+Consumer groups also ensures availability. 
+  * By peridically reading records from a topic, the consumer implicitly signals to the cluster that its in a healthy state. 
+  * If the consumer fail to read again within the allowable deadline, it will be deemed faulty nad its partition will be reassigned. 
+
+### Committing offsets
+* Persisting the consumer state back to the Kafka cluster is called commiting the offset. 
+* Consumer will read a record and commit the offset of the last record +1. 
+ * If a new consumer takes over the topic, it will commence processing from the last commit offset
+* <img width="893" alt="image" src="https://github.com/upasana05ghosh/Effective-Kafka-Notes/assets/17885669/8e6010f8-9c7f-493d-878b-dc1385c67d7c">
