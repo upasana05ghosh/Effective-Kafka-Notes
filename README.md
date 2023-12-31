@@ -11,6 +11,12 @@
     - [Records](#records)
     - [Partition](#partition)
     - [Topics](#topics)
+    - [Consumer Groups and Load balancing](#consumer-groups-and-load-balancing)
+    - [Committing offsets](#committing-offsets)
+- [Chapter 6: Desing Consideration](#chapter-6-desing-consideration)
+  - [Roles and responsibilties](#roles-and-responsibilties)
+  - [Paralleslism](#paralleslism)
+  - [Idempotence and exactly-once delivery](#idempotence-and-exactly-once-delivery)
 
 # Chapter 1: Event Streaming Fundamentals
 
@@ -101,3 +107,16 @@ Consumer groups also ensures availability.
 * Consumer will read a record and commit the offset of the last record +1. 
  * If a new consumer takes over the topic, it will commence processing from the last commit offset
 * <img width="893" alt="image" src="https://github.com/upasana05ghosh/Effective-Kafka-Notes/assets/17885669/8e6010f8-9c7f-493d-878b-dc1385c67d7c">
+
+# Chapter 6: Desing Consideration
+
+## Roles and responsibilties
+- Who owns the topic and who's responsible for it's upkeep?
+  - In single-producer-multiple-consumers, there may be a number of disaggreeing parties. 
+  - Sol - Rather than feeding consumers directly, intermediate processing stages are employed to conform to consumer group's expectations. 
+  - Consumer takes ownership of the conditioning stage. 
+
+## Paralleslism
+- Producer-driven partitioning
+  - Responsibility of assigning records to partition lies with the producer. 
+## Idempotence and exactly-once delivery
